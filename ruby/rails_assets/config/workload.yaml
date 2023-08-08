@@ -8,6 +8,9 @@ metadata:
     app.kubernetes.io/part-of: rails-asset-demo
 spec:
   params:
+  - name: annotations
+    value:
+      autoscaling.knative.dev/minScale: "1"
   - name: clusterBuilder
     value: full-jammy
   serviceClaims:
