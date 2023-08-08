@@ -19,3 +19,5 @@ gem "pg", "~> 1.1"
 gem 'listen', '~> 3.8', group: :development
 
 gem 'tzinfo-data' 
+
+gem 'service-bindings', '~> 1.0'
