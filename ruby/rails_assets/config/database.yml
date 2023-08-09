@@ -24,7 +24,7 @@ default: &default
 development:
   <<: *default
   database: rails_assets_development
-
+  
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -79,8 +79,19 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+
+<%  
+  require "bindings"
+
+  bindings = Bindings.from_service_binding_root
+  postgres_bindings = Bindings.filter(bindings, "postgresql")
+  postgres_binding = postgres_bindings[0]
+%>
+
 production:
   <<: *default
-  database: rails_assets_production
-  username: rails_assets
-  password: <%= ENV["RAILS_ASSETS_DATABASE_PASSWORD"] %>
+  database: <%= postgres_binding.get("database") %> 
+  host: <%= postgres_binding.get("host") %> 
+  port: <%= postgres_binding.get("port") %>
+  username: <%= postgres_binding.get("username") %>
+  password: <%= postgres_binding.get("password") %>
